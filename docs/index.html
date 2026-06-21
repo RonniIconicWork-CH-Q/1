@@ -174,150 +174,27 @@ Productos Disponibles
 
 
 <div class="slider-container">
-
-
+  
 <button class="slider-btn left" id="btnLeft">
 ‹
 </button>
 
-
-
 <div class="product-slider" id="productosFirebase">
-
-
-    <div class="product-card">
-
-      <img src="imagenes/audifonos inalambricos.jpg" 
-      alt="Audífonos inalámbricos">
-
-      <div class="product-info">
-
-        <h3>Audífonos</h3>
-
-        <p>
-        Batería 8h, calidad de sonido excepcional
-        </p>
-
-        <div class="price">
-        $54.99 / docena
-        </div>
-
-        <button class="btn comprar-btn">
-        Comprar
-        </button>
-
-      </div>
-
-    </div>
-
-
-
-
-    <div class="product-card">
-
-      <img src="imagenes/audifonos inalambricos.jpg" 
-      alt="Audífonos inalámbricos">
-
-      <div class="product-info">
-
-        <h3>Audífonos Inalámbricos</h3>
-
-        <p>
-        Ideal para uso doméstico
-        </p>
-
-        <div class="price">
-        $11.99 / unidad
-        </div>
-
-        <button class="btn comprar-btn">
-        Comprar
-        </button>
-
-      </div>
-
-    </div>
-
-
-
-
-
-    <div class="product-card">
-
-      <img src="imagenes/camiseta.jpg" 
-      alt="Camiseta">
-
-      <div class="product-info">
-
-        <h3>Camiseta</h3>
-
-        <p>
-        Material cómodo y estilo moderno
-        </p>
-
-        <div class="price">
-        $7.50
-        </div>
-
-        <button class="btn comprar-btn">
-        Comprar
-        </button>
-
-      </div>
-
-    </div>
-
-
-
-
-
-    <div class="product-card">
-
-      <img src="imagenes/audifonos inalambricos.jpg" 
-      alt="Parlante Bluetooth">
-
-      <div class="product-info">
-
-        <h3>Parlante Bluetooth</h3>
-
-        <p>
-        Sonido envolvente y resistente al agua
-        </p>
-
-        <div class="price">
-        $39.99
-        </div>
-
-        <button class="btn comprar-btn">
-        Comprar
-        </button>
-
-      </div>
-
-    </div>
-
-
-
 </div>
-
-
 
 <button class="slider-btn right" id="btnRight">
 ›
 </button>
 
 
-
 </div>
-
 </section>
-
-   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-
 <footer>
   © 2026 BluWay | Sin Límites
 </footer>
+
+</body>
+</html>
 
 <!-- MODAL DATOS DEL PEDIDO -->
 <div class="modal" id="pedidoModal">
@@ -390,67 +267,50 @@ Generar Pedido
   </div>
 </div>
 <script>
+const SUPABASE_URL = "https://nyloxoancdspgmhfaxgu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_L5e4j8t_hWq1Owd2Zi2JOQ_h0PECtSy";
 
-const firebaseConfig = {
-  databaseURL: "https://viweb-72fa3-default-rtdb.firebaseio.com"
-};
+fetch(`${SUPABASE_URL}/rest/v1/productos`, {
+  method: "GET",
+  headers: {
+    apikey: SUPABASE_KEY,
+    Authorization: `Bearer ${SUPABASE_KEY}`
+  }
+})
+.then(res => res.json())
+.then(data => {
 
-firebase.initializeApp(firebaseConfig);
+  console.log("Supabase conectado:", data);
 
-const db = firebase.database();
-db.ref("productos").once("value")
-.then((snapshot) => {
+  const contenedor = document.getElementById("productosFirebase");
 
-    console.log("Firebase conectado");
+  // limpia productos originales si quieres usar SOLO Supabase
+  contenedor.innerHTML = "";
 
-    console.log(snapshot.val());
+  if (!data || data.length === 0) {
+    contenedor.innerHTML = "<p>No hay productos en Supabase</p>";
+    return;
+  }
+
+  data.forEach(producto => {
+    contenedor.innerHTML += `
+      <div class="product-card">
+        <img src="${producto.imagen || 'imagenes/Camiseta.jpg'}">
+        <div class="product-info">
+          <h3>${producto.nombre}</h3>
+          <p>${producto.descripcion || ""}</p>
+          <div class="price">$${producto.precio}</div>
+          <button class="btn comprar-btn">Comprar</button>
+        </div>
+      </div>
+    `;
+  });
 
 })
-.catch((error) => {
-
-    console.log("Error Firebase:", error);
-
+.catch(error => {
+  console.log("Error Supabase:", error);
 });
-db.ref("productos").once("value")
-.then((snapshot) => {
 
-    const datos = snapshot.val();
-
-    const contenedor =
-    document.getElementById("productosFirebase");
-
-    for (let id in datos) {
-
-        const producto = datos[id];
-
-        contenedor.innerHTML += `
-
-        <div class="product-card">
-
-            <img src="imagenes/camiseta.jpg">
-
-            <div class="product-info">
-
-                <h3>${producto.nombre}</h3>
-
-                <p>Stock: ${producto.stock}</p>
-
-                <div class="price">
-                    $${producto.precio}
-                </div>
-
-                <button class="btn">
-                    Producto Firebase
-                </button>
-
-            </div>
-
-        </div>
-
-        `;
-    }
-
-});
 let productoSeleccionado = "";
 
 let latitudCliente = "";
