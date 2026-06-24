@@ -7,21 +7,21 @@
   <link rel="icon" type="image/jpeg" href="imagenes/icono.jpg">
 
   <style>
-    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+    * {margin: auto; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
     body {background: linear-gradient(135deg, #e99f08, #ffffff); color: #fff; overflow-x: hidden;}
-    header {background: rgb(151 4 4 / 0%); backdrop-filter: blur(10px); padding: 20px 50px;
-      display: flex; align-items: center; justify-content: space-between; position: relative; top: 0;
+    header {background: rgb(21 9 83); backdrop-filter: blur(10px); padding: 20px 50px;
+      display: flex; align-items: center; justify-content: space-between; position:static; top: 0;
       border-bottom: 1px solid #00f0ff40; box-shadow: 0 0 15px #00f0ff30;}
     header h1 {font-size: 1.8em; color: #00f0ff; letter-spacing: 2px; text-shadow: 0 0 10px #00f0ff;}
     nav a {color: #a0a0a0; margin-left: 30px; text-decoration: none; transition: 0.3s;}
     nav a:hover {color: #00f0ff; text-shadow: 0 0 10px #00f0ff;}
-    .hero {text-align: center; padding: 70px 20px;
+    .hero {text-align: center; padding: 10%;
      background: url('https://loremflickr.com/1600/900/shop') no-repeat center center/cover; position: relative;}
     .hero::before {content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.7);}
     .hero h2, .hero p {position: relative;}
-    .hero h2 {font-size: 3em; color: #2e7575; text-shadow: 0 0 20px #000000;}
+    .hero h2 {font-size: 3em; color: #ddd; text-shadow: 0 0 20px #000000;}
     .hero p {font-size: 1.2em; color: #ddd; margin-top: 15px;}
-    .product-section {padding: 60px 40px;}
+    .product-section {padding:5%;}
     .section-title {text-align: center; color: #ff0000; font-size: 2em; margin-bottom: 40px; text-shadow: 0 0 10px #ffffff;}
     .product-card {background: #001314; border: 1px solid #00f0ff40; border-radius: 15px; overflow: hidden;
       transition: 0.3s; box-shadow: 0 0 10px #00f0ff20; flex: 0 0 280px;}
@@ -163,13 +163,27 @@ display:none;
 </header>
 
 <section class="hero">
-  <h2>Envíos Ambato</h2>
-  <p>Estilo y precio en un solo lugar</p>
+<h2 id="frase" style="
+font-family:'Monotype Corsiva', cursive;
+color:rgb(228, 228, 228);
+font-weight:normal;
+">
+</h2>
+
+<h2 style="
+font-family:'Monotype Corsiva', cursive;
+color:rgb(172, 166, 166);
+font-weight:normal;
+">
+De tu eleccion
+</h2>
+
+
 </section>
 <section class="product-section">
 
 <h2 class="section-title">
-Estanteria
+Catálogo de productos
 </h2>
 
 
